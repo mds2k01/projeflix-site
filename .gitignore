@@ -1,0 +1,16 @@
+node_modules/
+.env
+.DS_Store
+npm-debug.log*
+*.log
+
+storage/audio/**
+**/audio/**/*.mp3
+
+# src/data/device-cache.json
+src/data/*.backup
+
+src/admin/*
+src/*/admin*
+
+*bkp*

@@ -1,0 +1,594 @@
+<%- include('../partials/header') %>
+
+<div class="container-transp text-center" style="margin-bottom: -30px;">
+  <a href="/"><img src="/imgs/projeflix-logo-transp-blue.png" alt="Logo" class="img-fluid mb-3" style="max-width: 150px;"></a>
+</div>
+
+<div class="container mt-4" style="max-width: 600px; background-color: white; padding: 25px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1);">
+
+  <!-- Alertas de mensagem -->
+  <div id="alertContainer"></div>
+
+  <form id="cadastroForm" onsubmit="return validarFormAjax(event)">
+
+    <!-- Nome Completo -->
+    <div class="form-group mb-3">
+      <label class="littleText fw-bold">Nome Completo *</label>
+      <input type="text" class="form-control" id="name" name="name" placeholder="Digite seu nome completo" required minlength="3" maxlength="100">
+      <div class="invalid-feedback" id="nameError"></div>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group mb-3">
+      <label class="littleText fw-bold">E-mail *</label>
+      <input type="email" class="form-control" id="email" name="email" placeholder="seu@email.com" required>
+      <div class="invalid-feedback" id="emailError"></div>
+      <small class="text-muted" id="emailHelp">Ex: nome@dominio.com</small>
+    </div>
+
+    <!-- Telefone -->
+    <div class="form-group mb-3">
+      <label class="littleText fw-bold">Telefone *</label>
+      <input type="tel" class="form-control" id="phone" name="phone" placeholder="(99) 99999-9999" required maxlength="15">
+      <div class="invalid-feedback" id="phoneError"></div>
+      <small class="text-muted">Celular com DDD</small>
+    </div>
+
+    <!-- Senha -->
+    <div class="form-group mb-3">
+      <label class="littleText fw-bold">Senha *</label>
+      <div class="input-group">
+        <input type="password" class="form-control" id="password" name="password" placeholder="Crie uma senha" required minlength="8">
+        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('password')">
+          <i class="fas fa-eye" id="togglePasswordIcon"></i>
+        </button>
+      </div>
+
+      <!-- Requisitos da senha -->
+      <div class="password-requirements mt-2 p-2 bg-light rounded">
+        <small class="d-block mb-1">Sua senha deve conter:</small>
+        <ul class="list-unstyled mb-0">
+          <li id="req-length" class="requirement-item">
+            <i class="fas fa-times-circle text-danger me-1"></i> Mínimo 8 caracteres
+          </li>
+          <li id="req-uppercase" class="requirement-item">
+            <i class="fas fa-times-circle text-danger me-1"></i> Pelo menos 1 letra maiúscula
+          </li>
+          <li id="req-lowercase" class="requirement-item">
+            <i class="fas fa-times-circle text-danger me-1"></i> Pelo menos 1 letra minúscula
+          </li>
+          <li id="req-number" class="requirement-item">
+            <i class="fas fa-times-circle text-danger me-1"></i> Pelo menos 1 número
+          </li>
+          <li id="req-special" class="requirement-item">
+            <i class="fas fa-times-circle text-danger me-1"></i> Pelo menos 1 caractere especial (!@#$%^&*)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Confirmar Senha -->
+    <div class="form-group mb-4">
+      <label class="littleText fw-bold">Confirmar Senha *</label>
+      <div class="input-group">
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Digite a senha novamente" required>
+        <button class="btn btn-outline-secondary" type="button" onclick="togglePassword('confirmPassword')">
+          <i class="fas fa-eye" id="toggleConfirmIcon"></i>
+        </button>
+      </div>
+      <div class="invalid-feedback" id="confirmPasswordError"></div>
+      <div class="password-match-indicator mt-1" id="passwordMatchIndicator"></div>
+    </div>
+
+    <!-- Estado e Cidade -->
+    <div class="row mb-3">
+      <div class="col-md-4">
+        <label class="littleText fw-bold">Estado *</label>
+        <select class="form-control" id="state" name="state" required>
+          <option value="">Selecione</option>
+        </select>
+        <div class="invalid-feedback" id="stateError"></div>
+      </div>
+
+      <div class="col-md-8">
+        <label class="littleText fw-bold">Cidade *</label>
+        <select class="form-control" id="city" name="city" required disabled>
+          <option value="">Selecione um estado primeiro</option>
+        </select>
+        <div class="invalid-feedback" id="cityError"></div>
+      </div>
+    </div>
+
+    <!-- Termos e Condições -->
+    <div class="form-check mb-4">
+      <input class="form-check-input" type="checkbox" id="terms" required>
+      <label class="form-check-label" for="terms">
+        Li e aceito os <a href="/termos" target="_blank">Termos de Uso</a> e
+        <a href="/privacidade" target="_blank">Política de Privacidade</a> *
+      </label>
+      <div class="invalid-feedback" id="termsError"></div>
+    </div>
+
+    <!-- Botões -->
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+        Criar Conta
+      </button>
+      <button type="reset" class="btn btn-outline-secondary" onclick="limparForm()">
+        Limpar
+      </button>
+    </div>
+
+    <!-- Link para login -->
+    <div class="text-center mt-3">
+      <small>Já tem uma conta? <a href="/login">Faça login</a></small>
+    </div>
+
+  </form>
+
+</div>
+
+<div class="container-transp text-center" style="margin-bottom: 20px;">
+  <a href="/"><b>Voltar</b></a>
+</div>
+
+
+<style>
+  /* Estilos para validação */
+  .requirement-item {
+    font-size: 0.85rem;
+    margin-bottom: 2px;
+    transition: all 0.3s ease;
+  }
+
+  .requirement-item.valid {
+    color: #28a745;
+  }
+
+  .requirement-item.valid i {
+    color: #28a745 !important;
+    transform: scale(1.1);
+  }
+
+  .password-match-indicator {
+    font-size: 0.85rem;
+  }
+
+  .match-success {
+    color: #28a745;
+  }
+
+  .match-error {
+    color: #dc3545;
+  }
+
+  /* Loading states */
+  .btn-loading {
+    position: relative;
+    pointer-events: none;
+    opacity: 0.7;
+  }
+
+  .btn-loading:after {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: 50%;
+    left: 50%;
+    margin-left: -10px;
+    margin-top: -10px;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Alertas */
+  .alert {
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+  }
+
+  .alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+  }
+
+  .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+  }
+
+  .alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+  }
+</style>
+
+<script>
+  // Função para mostrar alertas
+  function mostrarAlerta(tipo, mensagem) {
+    const alertContainer = document.getElementById('alertContainer');
+    const alertDiv = document.createElement('div');
+    alertDiv.className = `alert alert-${tipo} alert-dismissible fade show`;
+    alertDiv.role = 'alert';
+    alertDiv.innerHTML = `
+      ${mensagem}
+      <button type="button" class="btn-close" onclick="this.parentElement.remove()"></button>
+    `;
+    alertContainer.innerHTML = ''; // Limpa alertas anteriores
+    alertContainer.appendChild(alertDiv);
+
+    // Scroll suave até o alerta
+    alertDiv.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center'
+    });
+  }
+
+  // Dados dos estados e cidades (usando API do IBGE)
+  async function carregarEstados() {
+    try {
+      const response = await fetch('https://servicodados.ibge.gov.br/api/v1/localidades/estados?orderBy=nome');
+      const estados = await response.json();
+
+      const stateSelect = document.getElementById('state');
+      estados.forEach(estado => {
+        const option = document.createElement('option');
+        option.value = estado.sigla;
+        option.textContent = `${estado.nome} (${estado.sigla})`;
+        stateSelect.appendChild(option);
+      });
+    } catch (error) {
+      console.error('Erro ao carregar estados:', error);
+      mostrarAlerta('danger', 'Erro ao carregar lista de estados. Tente novamente.');
+    }
+  }
+
+  // Carregar cidades quando estado for selecionado
+  document.getElementById('state').addEventListener('change', async function() {
+    const uf = this.value;
+    const citySelect = document.getElementById('city');
+
+    citySelect.innerHTML = '<option value="">Carregando...</option>';
+    citySelect.disabled = true;
+
+    if (uf) {
+      try {
+        const response = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${uf}/municipios`);
+        const cidades = await response.json();
+
+        citySelect.innerHTML = '<option value="">Selecione uma cidade</option>';
+        cidades.sort((a, b) => a.nome.localeCompare(b.nome))
+          .forEach(cidade => {
+            const option = document.createElement('option');
+            option.value = cidade.nome;
+            option.textContent = cidade.nome;
+            citySelect.appendChild(option);
+          });
+        citySelect.disabled = false;
+      } catch (error) {
+        console.error('Erro ao carregar cidades:', error);
+        citySelect.innerHTML = '<option value="">Erro ao carregar cidades</option>';
+        mostrarAlerta('danger', 'Erro ao carregar cidades. Tente novamente.');
+      }
+    } else {
+      citySelect.innerHTML = '<option value="">Selecione um estado primeiro</option>';
+      citySelect.disabled = true;
+    }
+  });
+
+  // Validações em tempo real
+  document.getElementById('password').addEventListener('input', validarSenha);
+  document.getElementById('confirmPassword').addEventListener('input', verificarMatch);
+  document.getElementById('email').addEventListener('input', validarEmail);
+  document.getElementById('phone').addEventListener('input', formatarTelefone);
+
+  function validarSenha() {
+    const senha = document.getElementById('password').value;
+
+    // Verificar requisitos
+    const requisitos = {
+      length: senha.length >= 8,
+      uppercase: /[A-Z]/.test(senha),
+      lowercase: /[a-z]/.test(senha),
+      number: /[0-9]/.test(senha),
+      special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(senha)
+    };
+
+    // Atualizar indicadores visuais
+    document.getElementById('req-length').className = `requirement-item ${requisitos.length ? 'valid' : ''}`;
+    document.getElementById('req-uppercase').className = `requirement-item ${requisitos.uppercase ? 'valid' : ''}`;
+    document.getElementById('req-lowercase').className = `requirement-item ${requisitos.lowercase ? 'valid' : ''}`;
+    document.getElementById('req-number').className = `requirement-item ${requisitos.number ? 'valid' : ''}`;
+    document.getElementById('req-special').className = `requirement-item ${requisitos.special ? 'valid' : ''}`;
+
+    // Atualizar ícones
+    atualizarIconeRequisito('req-length', requisitos.length);
+    atualizarIconeRequisito('req-uppercase', requisitos.uppercase);
+    atualizarIconeRequisito('req-lowercase', requisitos.lowercase);
+    atualizarIconeRequisito('req-number', requisitos.number);
+    atualizarIconeRequisito('req-special', requisitos.special);
+
+    verificarMatch();
+  }
+
+  function atualizarIconeRequisito(elementId, valido) {
+    const element = document.getElementById(elementId);
+    const icon = element.querySelector('i');
+    if (valido) {
+      icon.className = 'fas fa-check-circle text-success me-1';
+    } else {
+      icon.className = 'fas fa-times-circle text-danger me-1';
+    }
+  }
+
+  function verificarMatch() {
+    const senha = document.getElementById('password').value;
+    const confirmar = document.getElementById('confirmPassword').value;
+    const indicator = document.getElementById('passwordMatchIndicator');
+
+    if (confirmar.length > 0) {
+      if (senha === confirmar) {
+        indicator.innerHTML = '<i class="fas fa-check-circle text-success"></i> Senhas coincidem';
+        indicator.className = 'password-match-indicator match-success';
+        document.getElementById('confirmPassword').classList.remove('is-invalid');
+      } else {
+        indicator.innerHTML = '<i class="fas fa-times-circle text-danger"></i> Senhas não coincidem';
+        indicator.className = 'password-match-indicator match-error';
+        document.getElementById('confirmPassword').classList.add('is-invalid');
+      }
+    } else {
+      indicator.innerHTML = '';
+    }
+  }
+
+  function validarEmail() {
+    const email = document.getElementById('email').value;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const errorElement = document.getElementById('emailError');
+
+    if (email && !emailRegex.test(email)) {
+      document.getElementById('email').classList.add('is-invalid');
+      errorElement.textContent = 'Digite um e-mail válido';
+    } else {
+      document.getElementById('email').classList.remove('is-invalid');
+      errorElement.textContent = '';
+    }
+  }
+
+  function formatarTelefone(event) {
+    let telefone = event.target.value.replace(/\D/g, '');
+
+    if (telefone.length <= 10) {
+      telefone = telefone.replace(/^(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+    } else {
+      telefone = telefone.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    }
+
+    event.target.value = telefone;
+  }
+
+  function togglePassword(fieldId) {
+    const field = document.getElementById(fieldId);
+    const type = field.type === 'password' ? 'text' : 'password';
+    field.type = type;
+
+    // Mudar ícone
+    const icon = fieldId === 'password' ?
+      document.getElementById('togglePasswordIcon') :
+      document.getElementById('toggleConfirmIcon');
+
+    icon.className = type === 'password' ? 'fas fa-eye' : 'fas fa-eye-slash';
+  }
+
+  // Função principal de validação e envio AJAX
+  async function validarFormAjax(event) {
+    event.preventDefault();
+
+    // Limpar mensagens anteriores
+    document.querySelectorAll('.is-invalid').forEach(el => {
+      el.classList.remove('is-invalid');
+    });
+
+    let isValid = true;
+
+    // Validar nome
+    const nome = document.getElementById('name');
+    if (nome.value.trim().length < 3) {
+      nome.classList.add('is-invalid');
+      document.getElementById('nameError').textContent = 'Nome deve ter pelo menos 3 caracteres';
+      isValid = false;
+    }
+
+    // Validar email
+    const email = document.getElementById('email');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email.value)) {
+      email.classList.add('is-invalid');
+      document.getElementById('emailError').textContent = 'E-mail inválido';
+      isValid = false;
+    }
+
+    // Validar telefone
+    const telefone = document.getElementById('phone');
+    const phoneRegex = /^\(\d{2}\) \d{4,5}-\d{4}$/;
+    if (!phoneRegex.test(telefone.value)) {
+      telefone.classList.add('is-invalid');
+      document.getElementById('phoneError').textContent = 'Telefone inválido';
+      isValid = false;
+    }
+
+    // Validar senha
+    const senha = document.getElementById('password').value;
+    const requisitosValidos =
+      senha.length >= 8 &&
+      /[A-Z]/.test(senha) &&
+      /[a-z]/.test(senha) &&
+      /[0-9]/.test(senha) &&
+      /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(senha);
+
+    if (!requisitosValidos) {
+      document.getElementById('password').classList.add('is-invalid');
+      isValid = false;
+    }
+
+    // Validar confirmação de senha
+    const confirmar = document.getElementById('confirmPassword').value;
+    if (senha !== confirmar) {
+      document.getElementById('confirmPassword').classList.add('is-invalid');
+      document.getElementById('confirmPasswordError').textContent = 'As senhas não coincidem';
+      isValid = false;
+    }
+
+    // Validar estado
+    const estado = document.getElementById('state');
+    if (!estado.value) {
+      estado.classList.add('is-invalid');
+      document.getElementById('stateError').textContent = 'Selecione um estado';
+      isValid = false;
+    }
+
+    // Validar cidade
+    const cidade = document.getElementById('city');
+    if (!cidade.value) {
+      cidade.classList.add('is-invalid');
+      document.getElementById('cityError').textContent = 'Selecione uma cidade';
+      isValid = false;
+    }
+
+    // Validar termos
+    const termos = document.getElementById('terms');
+    if (!termos.checked) {
+      termos.classList.add('is-invalid');
+      document.getElementById('termsError').textContent = 'Você deve aceitar os termos';
+      isValid = false;
+    }
+
+    // Se não for válido, para aqui
+    if (!isValid) {
+      return false;
+    }
+
+    // Se for válido, enviar via AJAX
+    const submitBtn = document.getElementById('submitBtn');
+    const textoOriginal = submitBtn.textContent;
+    submitBtn.classList.add('btn-loading');
+    submitBtn.disabled = true;
+
+    try {
+      // Coletar dados do formulário
+      const formData = new FormData(document.getElementById('cadastroForm'));
+
+      // Converter para objeto JSON (opcional, depende do seu backend)
+      const dados = {
+        name: formData.get('name'),
+        email: formData.get('email'),
+        phone: formData.get('phone'),
+        password: formData.get('password'),
+        state: formData.get('state'),
+        city: formData.get('city')
+      };
+
+      console.log('Enviando dados:', dados);
+
+      // Enviar para o backend
+      const response = await fetch('/auth/adduser', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          // Se estiver usando CSRF, adicione o token aqui
+          // 'X-CSRF-Token': document.querySelector('input[name="_csrf"]')?.value
+        },
+        body: JSON.stringify(dados)
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        // Sucesso no cadastro
+        mostrarAlerta('success', 'Cadastro realizado com sucesso! Redirecionando...');
+
+        // Limpar formulário
+        limparForm();
+
+        // Redirecionar após 2 segundos
+        setTimeout(() => {
+          window.location.href = result.redirectTo || '/login';
+        }, 2000);
+      } else {
+        // Erro retornado pelo servidor
+        mostrarAlerta('danger', result.message || 'Erro ao realizar cadastro. Tente novamente.');
+
+        // Se houver erros específicos por campo, mostrar
+        if (result.errors) {
+          Object.keys(result.errors).forEach(campo => {
+            const input = document.getElementById(campo);
+            if (input) {
+              input.classList.add('is-invalid');
+              const errorDiv = document.getElementById(`${campo}Error`);
+              if (errorDiv) {
+                errorDiv.textContent = result.errors[campo];
+              }
+            }
+          });
+        }
+      }
+    } catch (error) {
+      console.error('Erro na requisição:', error);
+      mostrarAlerta('danger', 'Erro de conexão. Verifique sua internet e tente novamente.');
+    } finally {
+      // Remover loading
+      submitBtn.classList.remove('btn-loading');
+      submitBtn.disabled = false;
+    }
+
+    return false;
+  }
+
+  function limparForm() {
+    document.getElementById('cadastroForm').reset();
+    document.querySelectorAll('.is-invalid').forEach(el => {
+      el.classList.remove('is-invalid');
+    });
+    document.getElementById('passwordMatchIndicator').innerHTML = '';
+
+    // Resetar requisitos de senha
+    const requisitos = ['req-length', 'req-uppercase', 'req-lowercase', 'req-number', 'req-special'];
+    requisitos.forEach(id => {
+      const element = document.getElementById(id);
+      element.className = 'requirement-item';
+      const icon = element.querySelector('i');
+      icon.className = 'fas fa-times-circle text-danger me-1';
+    });
+  }
+
+  // Carregar estados quando a página abrir
+  document.addEventListener('DOMContentLoaded', function() {
+    carregarEstados();
+
+    // Adicionar máscara inicial ao telefone
+    document.getElementById('phone').addEventListener('keypress', function(e) {
+      if (!/\d/.test(e.key)) {
+        e.preventDefault();
+      }
+    });
+  });
+</script>
+
+<!-- Adicionar Font Awesome para ícones -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<%- include('../partials/footer') %>

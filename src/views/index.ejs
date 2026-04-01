@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projeflix - Música ambiente para negócios</title>
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      scroll-behavior: smooth;
+      background-color: #F7F8F0;
+    }
+
+    .navbar {
+      background: linear-gradient(135deg, #F7F8F0, #F7F8F0);
+      color: white;
+    }
+
+    .hero {
+      background-color: #355872;
+      color: white;
+    }
+
+    /* .hero {
+      background: linear-gradient(135deg, #0d6efd, #0b5ed7);
+      color: white;
+    } */
+
+    .btn-whatsapp {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      border-radius: 50%;
+      padding: 15px 18px;
+      font-size: 20px;
+    }
+
+    .card-highlight {
+      border: 2px solid #0d6efd;
+      transform: scale(1.05);
+    }
+
+    .icon-bold {
+      font-size: 28px;
+      font-weight: bold;
+      color: red;
+    }
+
+    .icon-benefit {
+      font-weight: bold;
+      color: #2d6c9d;
+    }
+
+    .benefit-card {
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .benefit-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 25px rgba(0, 0, 0, 0.12);
+    }
+
+    .benefit-card i {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- 🔝 NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+
+      <a class="navbar-brand fw-bold" href="#">
+        <img src="/imgs/projeflix-logo-transp-blue.png" class="img-fluid mb-3" style="max-width: 120px; margin-top: 10px;">
+      </a>
+
+      <!-- BOTÕES VISÍVEIS NO MOBILE -->
+      <div class="d-flex d-lg-none ms-auto">
+        <a href="/login" class="btn btn-warning me-2">Login</a>
+      </div>
+
+      <!-- BOTÃO SANDUÍCHE -->
+      <button class="navbar-toggler ms-2" data-bs-toggle="collapse" data-bs-target="#menu">
+        ☰
+      </button>
+
+      <div class="collapse navbar-collapse" id="menu">
+
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="#beneficios">Benefícios</a></li>
+          <li class="nav-item"><a class="nav-link" href="#planos">Planos</a></li>
+        </ul>
+
+        <!-- BOTÕES VISÍVEIS NO DESKTOP -->
+        <div class="d-none d-lg-flex">
+          <a href="/login" class="btn btn-warning ms-3">Login</a>
+          <a href="/auth/register" class="btn btn-primary ms-3">Começar</a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- 🔵 HERO -->
+  <section class="hero text-center py-5">
+    <div class="container">
+      <h1 class="fw-bold">
+        Música ambiente profissional para o seu negócio
+      </h1>
+
+      <p class="lead mt-3">
+        A partir de poucos reais por dia. Simples, automático e sem complicação.
+      </p>
+
+      <div class="mt-4">
+        <a href="/auth/register" class="btn btn-light btn-lg me-2">Começar agora</a>
+        <a href="https://wa.me/+551919996031622" target="_blank" class="btn btn-outline-light btn-lg">WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🔴 PROBLEMA -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2 class="fw-bold">Seu negócio ainda usa música improvisada?</h2>
+
+      <div class="row mt-4">
+        <div class="col-4"><i class="bi bi-arrow-repeat icon-bold fs-1" style="text-shadow: 0 0 1px currentColor;"></i>
+          <p>Playlist repetitiva</p>
+        </div>
+        <div class="col-4"><i class="bi bi-sign-no-parking icon-bold fs-1" style="text-shadow: 0 0 1px currentColor;"></i>
+          <p>Música inadequada</p>
+        </div>
+        <div class="col-4"><i class="bi bi-patch-question icon-bold fs-1" style="text-shadow: 0 0 1px currentColor;"></i>
+          <p>Sem controle algum</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 🟢 SOLUÇÃO -->
+  <section class="py-5 text-center" style="background-color: #fff;">
+    <div class="container">
+      <h2 class="fw-bold">A solução profissional para o seu ambiente</h2>
+
+      <p class="mt-3">
+        Com a Projeflix, sua música toca automaticamente com qualidade e sem dor de cabeça.
+      </p>
+    </div>
+  </section>
+
+  <!-- 📦 CAIXINHA -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2 class="fw-bold">📦 Sem computador. Sem complicação.</h2>
+
+      <img src="/imgs/caixinha-transp.png" alt="caixinha" class="img-fluid mb-3" style="max-width: 120px; margin-top: 10px;">
+
+      <p class="mt-3">
+        Não tem um computador ou smartphone por perto? Temos a solução.<br> Nossa caixinha pode se conectar aos nossos
+        servidores e transmitir música para o seu negócio. E o melhor, você pode controlar tudo à distância.
+        Ligue, conecte à internet e pronto. Controle tudo pelo celular ou computador.
+      </p>
+    </div>
+  </section>
+
+  <!-- 🟡 BENEFÍCIOS -->
+  <section id="beneficios" class="py-5 bg-light">
+    <div class="container text-center">
+
+      <h2 class="fw-bold mb-5">Benefícios para o seu negócio</h2>
+
+      <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-md-3">
+          <div class="p-4 bg-white rounded shadow-sm benefit-card" style="height: 170px;">
+            <i class="bi bi-graph-up-arrow fs-1 icon-benefit"></i>
+            <h6 class="mt-3">Aumente suas vendas</h6>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="col-md-3">
+          <div class="p-4 bg-white rounded shadow-sm benefit-card" style="height: 170px;">
+            <i class="bi bi-clock-history fs-1 icon-benefit"></i>
+            <h6 class="mt-3">Mais tempo no ambiente</h6>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="col-md-3">
+          <div class="p-4 bg-white rounded shadow-sm benefit-card" style="height: 170px;">
+            <i class="bi bi-broadcast fs-1 icon-benefit"></i>
+            <h6 class="mt-3">Som profissional</h6>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="col-md-3">
+          <div class="p-4 bg-white rounded shadow-sm benefit-card" style="height: 170px;">
+            <i class="bi bi-emoji-smile fs-1 icon-benefit"></i>
+            <h6 class="mt-3">Experiência melhor</h6>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ⚙️ COMO FUNCIONA -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2 class="fw-bold">Comece em minutos</h2>
+
+      <div class="row mt-4">
+        <div class="col-md-4"><i class="bi bi-1-circle-fill"></i> Escolha seu plano</div>
+        <div class="col-md-4"><i class="bi bi-2-circle-fill"></i> Configure seu ambiente</div>
+        <div class="col-md-4"><i class="bi bi-3-circle-fill"></i> Deixe a música rodar</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 💰 PLANOS -->
+  <section id="planos" class="py-5 bg-light">
+    <div class="container text-center">
+      <h2 class="fw-bold">Escolha seu plano</h2>
+
+      <div class="row mt-5">
+
+        <!-- Essencial -->
+        <div class="col-md-4 mb-4" style="height: 200px;">
+          <div class="p-4 border rounded h-100">
+            <h4>Essencial</h4>
+            <p class="fs-4 fw-bold">R$59.90/mês</p>
+            <p>Streaming básico</p>
+            <span style="font-size: 14px;">
+              Plano Mensal
+            </span>
+            <!-- <button class="btn btn-outline-primary">Começar</button> -->
+          </div>
+        </div>
+
+        <!-- Profissional -->
+        <div class="col-md-4 mb-4" style="height: 220px;">
+          <div class="p-4 border rounded h-100 card-highlight" style="background-color: aliceblue;">
+            <h4>Profissional ⭐</h4>
+            <p class="fs-4 fw-bold">R$49.90/mês</p>
+            <p>Melhor experiência</p>
+            <span style="font-size: 14px;">
+              Plano Semestral
+            </span>
+            <!-- <button class="btn btn-primary">Mais popular</button> -->
+          </div>
+        </div>
+
+        <!-- Caixinha -->
+        <div class="col-md-4 mb-4" style="height: 200px;">
+          <div class="p-4 border rounded h-100">
+            <h4>Com Caixinha</h4>
+            <p class="fs-4 fw-bold">R$69.90/mês</p>
+            <p>Sem computador + plug & play</p>
+            <span style="font-size: 14px;">
+              Plano Semestral
+            </span>
+            <!-- <button class="btn btn-outline-primary">Quero facilidade</button> -->
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- 🚀 CTA FINAL -->
+  <section class="py-5 text-center">
+    <div class="container">
+      <h2 class="fw-bold">
+        Transforme o ambiente do seu negócio hoje mesmo!
+      </h2>
+
+      <a href="/auth/register" class="btn btn-primary btn-lg mt-4">
+        Começar agora
+      </a>
+    </div>
+  </section>
+
+  <!-- 🔻 FOOTER -->
+  <footer class="text-white text-center py-3" style="background-color: #355872;">
+    <div class="container">
+      <small>© <%= new Date().getFullYear() %> Projeflix - Todos os direitos reservados</small>
+      <br>
+      <small class="text-white text-center">
+        O uso de música em ambientes comerciais pode exigir regularização junto ao <b>ECAD</b>.
+        A responsabilidade é do estabelecimento contratante.
+      </small>
+      <br>
+      <a href="/termos" target="_blank" class="text-white me-2">Termos de Uso</a>
+      |
+      <a href="/privacidade" target="_blank" class="text-white ms-2">Privacidade</a>
+  </footer>
+
+  <!-- 📱 WhatsApp flutuante -->
+  <a href="https://wa.me/+5519996031622" class="btn btn-success btn-whatsapp">
+    💬
+  </a>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+
+</html>

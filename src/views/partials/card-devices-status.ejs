@@ -1,0 +1,533 @@
+<style>
+  /* Apple Style CSS - Responsivo */
+  * {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    box-sizing: border-box;
+  }
+
+  #devicesList {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px;
+    width: 100%;
+  }
+
+  /* Grid responsivo */
+  .devices-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 12px;
+    padding: 4px;
+    width: 100%;
+  }
+
+  /* Card base - mobile first */
+  .device-card {
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-radius: 20px;
+    padding: 16px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  /* Tablets e telas médias */
+  @media (min-width: 768px) {
+    .device-card {
+      padding: 20px;
+    }
+
+    .devices-grid {
+      gap: 16px;
+    }
+  }
+
+  .device-card.auth-1 {
+    background: linear-gradient(145deg, #f0fdf4, #dcfce7);
+  }
+
+  .device-card.auth-0 {
+    background: linear-gradient(145deg, #fefce8, #fef9c3);
+  }
+
+  /* Header responsivo */
+  .device-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 480px) {
+    .device-header {
+      flex-wrap: nowrap;
+    }
+  }
+
+  @media (min-width: 768px) {}
+
+  .device-info {
+    flex: 1;
+    min-width: 0;
+    /* Permite truncar texto */
+  }
+
+  .device-title {
+    font-weight: 600;
+    font-size: 15px;
+    color: #1d1d1f;
+    letter-spacing: -0.2px;
+    word-break: break-word;
+  }
+
+  @media (min-width: 768px) {
+    .device-title {
+      font-size: 16px;
+    }
+  }
+
+  .device-subtitle {
+    font-size: 12px;
+    color: #86868b;
+    margin-top: 2px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .device-subtitle {
+      font-size: 13px;
+    }
+  }
+
+  /* Badge de autorização responsivo */
+  .auth-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 3px 8px;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    z-index: 2;
+  }
+
+  @media (min-width: 768px) {
+    .auth-badge {
+      top: 16px;
+      right: 16px;
+      padding: 4px 10px;
+      font-size: 12px;
+    }
+  }
+
+  .auth-badge i {
+    font-size: 10px;
+  }
+
+  .auth-badge.auth-1 {
+    background: rgba(34, 197, 94, 0.15);
+    color: #15803d;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+  }
+
+  .auth-badge.auth-0 {
+    background: rgba(234, 179, 8, 0.15);
+    color: #854d0e;
+    border: 1px solid rgba(234, 179, 8, 0.3);
+  }
+
+  /* Status no badge para mobile */
+  .badge-status {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 4px;
+  }
+
+  @media (min-width: 480px) {
+    .badge-status {
+      margin-top: 6px;
+    }
+  }
+
+  /* Timestamp responsivo */
+  .time-info {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: #86868b;
+    flex-wrap: wrap;
+  }
+
+  @media (min-width: 768px) {
+    .time-info {
+      margin-top: 16px;
+      padding-top: 12px;
+      font-size: 12px;
+    }
+  }
+
+  .time-info i {
+    font-size: 12px;
+    opacity: 0.7;
+    flex-shrink: 0;
+  }
+
+  .time-info span {
+    word-break: break-word;
+    flex: 1;
+  }
+
+  /* Status container responsivo */
+  .status-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .status-dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+
+  .status-dot.online {
+    background: #22c55e;
+    box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+    animation: pulse-green 2s infinite;
+  }
+
+  .status-dot.offline {
+    background: #8e8e93;
+    box-shadow: 0 0 0 2px rgba(142, 142, 147, 0.1);
+  }
+
+  @keyframes pulse-green {
+    0% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    }
+
+    70% {
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0);
+    }
+
+    100% {
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+    }
+  }
+
+  .status-text {
+    font-size: 11px;
+    font-weight: 500;
+  }
+
+  @media (min-width: 768px) {
+    .status-text {
+      font-size: 12px;
+    }
+  }
+
+  .status-text.online {
+    color: #15803d;
+  }
+
+  .status-text.offline {
+    color: #6b6b70;
+  }
+
+  /* Empty state responsivo */
+  .no-devices {
+    text-align: center;
+    padding: 40px 16px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    color: #86868b;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    margin: 8px;
+  }
+
+  @media (min-width: 768px) {
+    .no-devices {
+      padding: 60px 20px;
+      border-radius: 32px;
+    }
+  }
+
+  .no-devices i {
+    font-size: 36px;
+    margin-bottom: 12px;
+    color: #c6c6c8;
+  }
+
+  @media (min-width: 768px) {
+    .no-devices i {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+  }
+
+  .no-devices h4 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 6px;
+  }
+
+  @media (min-width: 768px) {
+    .no-devices h4 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+  }
+
+  .no-devices p {
+    font-size: 13px;
+    color: #86868b;
+  }
+
+  /* Ajustes para telas muito pequenas */
+  @media (max-width: 380px) {
+    .devices-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .device-header {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .auth-badge {
+      top: 8px;
+      right: 8px;
+      font-size: 10px;
+      padding: 2px 6px;
+    }
+  }
+</style>
+
+
+<!-- Área onde os devices serão exibidos/atualizados -->
+<div id="devicesList">
+  <% if (devices && Object.keys(devices).length > 0) { %>
+  <div class="devices-grid">
+    <% Object.values(devices).forEach(device => { 
+      const isAuthorized = device.auth == 1;
+      const deviceId = device.device_id || 'N/A';
+      const owner = device.owner || 'Sem proprietário';
+
+      // const lastCategory = device.last_category ? device.last_category.split('/').pop() : 'Nenhuma';
+      const lastCategory = 
+  (typeof device.last_category === 'string' && device.last_category.includes('/'))
+    ? device.last_category.split('/').pop().split('?')[0]
+    : (typeof device.last_category === 'string'
+        ? device.last_category
+        : 'Nenhuma');
+
+      const lastAccess = device.last_access ? new Date(device.last_access) : null;
+    %>
+    <div class="device-card auth-<%= isAuthorized ? '1' : '0' %>" data-device-id="<%= deviceId %>">
+      <!-- Badge de autorização -->
+      <span class="auth-badge auth-<%= isAuthorized ? '1' : '0' %>">
+        <i class="bi bi-shield-check"></i>
+        <%= isAuthorized ? 'Autorizado' : 'Pendente' %>
+      </span>
+
+      <!-- Informações principais - sem ícone -->
+      <div class="device-info" style="margin-top: 0px;">
+        <div class="device-title"><%= deviceId %></div>
+        <div class="device-subtitle">
+          <i class="bi bi-person"></i> <%= owner %>
+        </div>
+        <div class="device-subtitle">
+          <i class="bi bi-music-note-beamed"></i>
+          <span class="category-text" id="category-<%= deviceId %>">
+            <%= lastCategory %>
+          </span>
+        </div>
+        <div class="badge-status">
+          <span class="status-dot" id="dot-<%= deviceId %>"></span>
+          <span class="status-text" id="status-<%= deviceId %>">Carregando...</span>
+        </div>
+      </div>
+
+      <!-- Timestamp -->
+      <div class="time-info">
+        <i class="bi bi-clock"></i>
+        <span class="device-last-access">
+          <%= lastAccess ? lastAccess.toLocaleString('pt-BR') : 'Nunca acessado' %>
+        </span>
+      </div>
+    </div>
+    <% }); %>
+  </div>
+  <% } else { %>
+  <div class="no-devices" style="padding: 0px">
+    <i class="bi bi-hdd-stack"></i>
+    <h4>Caixinha(s) não encontrada(s).</h4>
+    <p>Este é um produto adicional que poderá ser contratado em breve.</p>
+  </div>
+  <% } %>
+</div>
+
+<% if (devices && Object.keys(devices).length > 0) { %>
+
+<div class="col-sm-3 container-transp" style="margin-top: -20px; margin-bottom: -30px;">
+  <label class="littleText">Equipamentos (ESP-32)</label><br>
+  <select class="form-select form-select-md input-field" id="device" name="device">
+
+    <% const allDevices = []; %>
+
+    <% Object.values(devices).forEach(device => { 
+      const isAuthorized = device.auth == 1;
+      const deviceId = device.device_id || 'N/A';
+
+      allDevices.push(device.device_id);
+    %>
+
+    <option value="<%= deviceId %>"><%= deviceId %></option>
+
+    <% }); %>
+
+    <option value="<%= allDevices %>" selected>Todas</option>
+
+  </select>
+</div>
+
+<% }; %>
+
+<script>
+  // Variáveis globais
+  let devices = <%- JSON.stringify(devices || {}) %>;
+  let isRefreshing = false;
+  let updateInterval;
+
+  async function refreshDevices() {
+    if (isRefreshing) return;
+    isRefreshing = true;
+
+    try {
+      const response = await fetch('/customer/infodevices');
+      if (!response.ok) throw new Error('Erro na requisição');
+      devices = await response.json();
+      updateDevicesDisplay();
+    } catch (error) {
+      console.error('Erro ao atualizar devices:', error);
+    } finally {
+      isRefreshing = false;
+    }
+  }
+
+  function updateDevicesDisplay() {
+    Object.values(devices).forEach(device => {
+      const card = document.querySelector(`.device-card[data-device-id="${device.device_id}"]`);
+      if (!card) return;
+
+      const isAuthorized = device.auth == 1;
+
+      /* ---------- BACKGROUND DO CARD ---------- */
+      card.classList.remove('auth-0', 'auth-1');
+      card.classList.add(`auth-${isAuthorized ? '1' : '0'}`);
+
+      /* ---------- BADGE ---------- */
+      const badge = card.querySelector('.auth-badge');
+      if (badge) {
+        badge.classList.remove('auth-0', 'auth-1');
+        badge.classList.add(`auth-${isAuthorized ? '1' : '0'}`);
+        badge.innerHTML = `
+        <i class="bi bi-shield-check"></i>
+        ${isAuthorized ? 'Autorizado' : 'Pendente'}
+      `;
+      }
+
+      /* ---------- CATEGORIA ---------- */
+      const categoryText = card.querySelector(`#category-${device.device_id}`);
+      if (categoryText && device.last_category) {
+        // categoryText.textContent = device.last_category.split('/').pop();
+        const lastCategoryText = device.last_category ?
+          device.last_category.split('/').pop().split('?')[0] :
+          'Nenhuma';
+
+        categoryText.textContent = lastCategoryText;
+      }
+
+      /* ---------- ÚLTIMO ACESSO ---------- */
+      const lastAccessSpan = card.querySelector('.device-last-access');
+      if (lastAccessSpan) {
+        lastAccessSpan.textContent = device.last_access ?
+          new Date(device.last_access).toLocaleString('pt-BR') :
+          'Nunca acessado';
+      }
+    });
+
+    updateOnlineStatus();
+  }
+
+  function updateOnlineStatus() {
+    const now = new Date();
+
+    Object.values(devices).forEach(device => {
+      const deviceId = device.device_id;
+      const dot = document.getElementById(`dot-${deviceId}`);
+      const statusText = document.getElementById(`status-${deviceId}`);
+      const categoryText = document.getElementById(`category-${deviceId}`);
+
+      //   categoryText.textContent = device.last_category.split('/').pop();
+
+      if (dot && statusText) {
+        if (device.last_access) {
+          const lastAccess = new Date(device.last_access);
+          const diffSeconds = (now - lastAccess) / 1000;
+          const isOnline = diffSeconds < 20;
+
+          dot.className = `status-dot ${isOnline ? 'online' : 'offline'}`;
+          statusText.className = `status-text ${isOnline ? 'online' : 'offline'}`;
+          statusText.textContent = isOnline ? 'Online' : 'Offline';
+        } else {
+          dot.className = 'status-dot offline';
+          statusText.className = 'status-text offline';
+          statusText.textContent = 'Offline';
+        }
+      }
+    });
+  }
+
+  function startAutoRefresh() {
+    if (updateInterval) clearInterval(updateInterval);
+    updateInterval = setInterval(refreshDevices, 10000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    startAutoRefresh();
+    setInterval(updateOnlineStatus, 1000);
+    updateOnlineStatus();
+  });
+</script>

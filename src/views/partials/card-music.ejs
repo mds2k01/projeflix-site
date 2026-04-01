@@ -1,0 +1,192 @@
+<style>
+  .album-container {
+    border-radius: 10px;
+    overflow: hidden;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* Garante que o container seja quadrado */
+    position: relative;
+  }
+
+  .album-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    /* Faz a imagem cobrir todo o container sem distorcer */
+    object-position: center;
+    /* Centraliza o foco da imagem */
+  }
+
+  /* BADGE DIAGONAL */
+
+  .corner-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    height: 80px;
+    overflow: hidden;
+    z-index: 10;
+  }
+
+  .corner-badge span {
+    position: absolute;
+    display: block;
+    width: 120px;
+    right: -30px;
+    top: 18px;
+
+    background: linear-gradient(135deg, #ff4d4d, #c62828);
+    color: white;
+
+    font-size: 10px;
+    font-weight: bold;
+    text-align: center;
+
+    transform: rotate(45deg);
+
+    padding: 3px 0;
+
+    box-shadow: 0 3px 6px rgba(0, 0, 0, .4);
+    letter-spacing: .5px;
+  }
+
+  .equalizer {
+    position: absolute;
+    bottom: 27px;
+    right: 20px;
+    display: flex;
+    gap: 4px;
+    height: 20px;
+    align-items: flex-end;
+  }
+
+  .equalizer span {
+    width: 4px;
+    background: white;
+    border-radius: 2px;
+    animation: bounce 1s infinite ease-in-out;
+  }
+
+  .equalizer span:nth-child(1) {
+    animation-delay: 0s;
+  }
+
+  .equalizer span:nth-child(2) {
+    animation-delay: 0.2s;
+  }
+
+  .equalizer span:nth-child(3) {
+    animation-delay: 0.4s;
+  }
+
+  .equalizer span:nth-child(4) {
+    animation-delay: 0.6s;
+  }
+
+  .btnPlayer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid white;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 10;
+    transition: all 0.2s ease;
+  }
+
+  @media (max-width:576px) {
+
+    .album-container {
+      aspect-ratio: 1 / 1;
+    }
+
+    .corner-badge {
+      width: 55px;
+      height: 55px;
+    }
+
+    .corner-badge span {
+      width: 90px;
+      right: -22px;
+      top: 13px;
+      font-size: 8px;
+    }
+
+    .equalizer {
+      bottom: 17px;
+      right: 10px;
+      height: 14px;
+      gap: 3px;
+    }
+
+    .equalizer span {
+      width: 3px;
+    }
+
+    .btnPlayer {
+      width: 40px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+  }
+</style>
+
+<div class="col-md-3 mb-3 col-6">
+  <div class="card p-3 h-100 border-0">
+
+    <div style="font-size:17px;color:#355872;line-height:1.0;margin-top:-20px; margin-bottom: 10px;">
+      <b><%= category %></b><br>
+      <span style="font-weight:lighter;font-size:12px;">
+        <%= category_description %>
+      </span>
+    </div>
+
+    <!-- CONTAINER DA IMAGEM -->
+    <div class="album-container position-relative">
+
+      <img src="/imgs/albums/<%= img_album %>.jpg" class="img-fluid album-img">
+
+      <!-- BADGE -->
+      <% if (locals.badge) { %>
+      <div class="corner-badge">
+        <span style="
+    background: linear-gradient(135deg, <%= locals.badge_color1 || '#ff4d4d' %>, <%= locals.badge_color2 || '#c62828' %>);
+  ">
+          <%= badge %>
+        </span>
+      </div>
+      <% } %>
+
+      <!-- BOTÃO CENTRAL -->
+      <button onclick="togglePlaylist('<%= category_key %>', this)" class="btnPlayer position-absolute top-50 start-50 translate-middle rounded-circle">
+        <i class="biControl bi-play-fill"></i>
+      </button>
+
+      <% if (!['FM', 'Paradise', 'USA BRASIL', 'Modão', 'Transamérica', 'Gospel', 'P.', 'Evangelizar', 'Canção'].some(word => category.includes(word))) { %>
+      <h5><%= category %></h5>
+      <% } %>
+
+
+      <!-- EQUALIZER -->
+      <div class="equalizer d-none">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+    </div>
+
+  </div>
+</div>

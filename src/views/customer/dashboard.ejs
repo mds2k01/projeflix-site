@@ -1,0 +1,567 @@
+<%- include('../partials/header') %>
+
+<div class="container-transp" style="margin-bottom: -30px;">
+  <img src="/imgs/projeflix-logo-transp-blue.png" alt="Logo" class="img-fluid mb-3" style="max-width: 150px;">
+</div>
+
+<div class="container mt-4" style="background-color: white;">
+
+  <div style="font-size: 24px; color: #355872; margin-bottom: 30px;">
+    Olá, <b><%= userData.name %></b>.
+    <p style="font-weight:lighter;font-size:12px;">
+      Aproveite o nosso conteúdo. Você tem <b>7 dias grátis</b> para experimentar.
+    </p>
+  </div>
+
+  <%- include('../partials/card-devices-status') %>
+
+  <!-- <br><br> -->
+
+  <!-- <div style="font-size: 24px; color: #355872; margin-bottom: 30px;">
+    <b>Playlists</b>
+  </div> -->
+
+
+  <div class="row justify-content-center" style="margin-top: 60px;">
+
+    <!-- <%= JSON.stringify(userData) %> -->
+
+    <audio id="player" style="display:none;"></audio>
+    <audio id="adPlayer" style="display:none;"></audio>
+
+    <% if (userData.mail === 'mds2k01@gmail.com') { %>
+    <!-- Raul Seixas -->
+    <%- include('../partials/card-music', { 
+      category: 'Raul Seixas', category_description: 'Raul', img_album: 'raulseixas', category_key: 'raulseixas', badge: 'EXCLUSIVA' }) %>
+    <% } %>
+
+    <!-- Dance -->
+    <%- include('../partials/card-music', { 
+      category: 'Dance', category_description: 'Ritmo', img_album: 'dance', category_key: 'dance', badge: 'NOVA' }) %>
+
+    <!-- Discoteca -->
+    <%- include('../partials/card-music', { 
+      category: 'Disco', category_description: '70s', img_album: 'disco', category_key: 'disco', badge: 'NOVA' }) %>
+
+    <!-- Flashback -->
+    <%- include('../partials/card-music', { 
+      category: 'Flashback', category_description: 'Recordar', img_album: 'flashback', category_key: 'flashback', badge: 'NOVA' }) %>
+
+    <!-- New Pop -->
+    <%- include('../partials/card-music', { 
+      category: 'New Pop', category_description: 'Pop', img_album: 'pop2', category_key: 'pop2', badge: 'NOVA' }) %>
+
+    <!-- Academia -->
+    <%- include('../partials/card-music', { 
+      category: 'Academia', category_description: 'Malhar', img_album: 'gym', category_key: 'gym', badge: 'NOVA' }) %>
+
+    <!-- Radio -->
+    <%- include('../partials/card-music', { 
+      category: 'Radio', category_description: 'Toque tudo!', img_album: 'pop4', category_key: 'all', badge: 'TOP RADIO', badge_color1: '#42a5f5', badge_color2: '#1565c0' }) %>
+
+    <!-- Antigas -->
+    <%- include('../partials/card-music', { 
+      category: 'Antigas', category_description: 'Old Times', img_album: 'antigas', category_key: 'antigas' }) %>
+
+    <!-- Ambient -->
+    <%- include('../partials/card-music', { 
+      category: 'Ambient', category_description: 'Divertido', img_album: 'ambient', category_key: 'ambient' }) %>
+
+    <!-- Classic -->
+    <%- include('../partials/card-music', { 
+      category: 'Classic', category_description: 'Relaxante', img_album: 'classic1', category_key: 'classic' }) %>
+
+    <!-- Forró -->
+    <%- include('../partials/card-music', { 
+      category: 'Forró', category_description: 'Radio Forró', img_album: 'forro', category_key: 'forro' }) %>
+
+    <!-- Hits -->
+    <%- include('../partials/card-music', { 
+      category: 'Hits', category_description: 'Internacional', img_album: 'top40', category_key: 'top40', badge: 'NOVA' }) %>
+
+    <!-- Jazz -->
+    <%- include('../partials/card-music', { 
+      category: 'Jazz', category_description: 'Sax', img_album: 'jazz', category_key: 'jazz', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <!-- Piano -->
+    <%- include('../partials/card-music', { 
+      category: 'Piano', category_description: 'Teclados', img_album: 'piano', category_key: 'piano' }) %>
+
+    <!-- Pop -->
+    <%- include('../partials/card-music', { 
+      category: 'Pop', category_description: 'Animado', img_album: 'pop3', category_key: 'pop' }) %>
+
+    <!-- Rock -->
+    <%- include('../partials/card-music', { 
+      category: 'Rock', category_description: 'Lets Rock!', img_album: 'pop1', category_key: 'rock' }) %>
+
+    <!-- Shorts -->
+    <%- include('../partials/card-music', { 
+      category: 'Shorts', category_description: 'Fast', img_album: 'shorts', category_key: 'shorts', badge: 'DEMO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+
+    <hr style="margin-top: 30px; margin-bottom: 60px;">
+
+    <!-- Gauchas -->
+
+    <div style="font-size: 24px; color: #355872; margin-top: -30px; margin-bottom: 30px;">
+      <b>Regional</b>
+    </div>
+
+
+    <!-- Sertanejo -->
+    <%- include('../partials/card-music', { 
+      category: 'Sertanejo Top', category_description: 'Orgulho', img_album: 'sertanejo2', category_key: 'sertanejo2', badge: 'NOVO' }) %>
+
+    <!-- Sertanejo -->
+    <%- include('../partials/card-music', { 
+      category: 'Sertanejo', category_description: 'Caipira', img_album: 'sertanejo', category_key: 'sertanejo' }) %>
+
+    <!-- Modão Sertanejo -->
+    <%- include('../partials/card-music', { 
+      category: 'Modão', category_description: 'MT', img_album: 'modaosertanejo', category_key: 'modaosertanejo' }) %>
+
+    <!-- Pátria Gaucha -->
+    <%- include('../partials/card-music', { 
+      category: 'P. Gaúcha', category_description: 'Pátria Gaúcha', img_album: 'patriagaucha', category_key: 'patriagaucha', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <!-- Portal Tradição -->
+    <%- include('../partials/card-music', { 
+      category: 'P. Tradição', category_description: 'Gaúcha', img_album: 'sertanejo3', category_key: 'portaltradicao', badge: 'NOVA' }) %>
+
+    <!-- Gaucha -->
+    <%- include('../partials/card-music', { 
+      category: 'Gaúcha', category_description: 'Tchê', img_album: 'gaucha', category_key: 'gaucha', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <hr style="margin-top: 30px; margin-bottom: 60px;">
+
+    <!-- Web Radios -->
+
+    <div style="font-size: 24px; color: #355872; margin-top: -30px; margin-bottom: 30px;">
+      <b>Web Radios</b>
+    </div>
+
+    <!-- Italia -->
+    <%- include('../partials/card-music', { 
+      category: 'Itália', category_description: 'More mio!', img_album: 'italia', category_key: 'italia', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <!-- Paradise -->
+    <%- include('../partials/card-music', { 
+      category: 'Paradise', category_description: 'Eclético', img_album: 'paradise', category_key: 'paradise', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <!-- Tango -->
+    <%- include('../partials/card-music', { 
+      category: 'Tango', category_description: 'Argentina', img_album: 'tango', category_key: 'tango', badge: 'WEB RADIO', badge_color1: '#d78100', badge_color2: '#f8b222' }) %>
+
+    <!-- USABrasil -->
+    <%- include('../partials/card-music', { 
+      category: 'USA BRASIL', category_description: 'Brasileira', img_album: 'usabrasil', category_key: 'usabrasil', badge: 'NOVA' }) %>
+
+    <hr style="margin-top: 30px; margin-bottom: 60px;">
+
+    <div style="font-size: 24px; color: #355872; margin-top: -30px; margin-bottom: 30px;">
+      <b>Religiosas</b>
+    </div>
+
+    <!-- Canção Nova FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Canção Nova', category_description: 'Católica', img_album: 'cancaonovafm', category_key: 'cancaonovafm', badge: 'NOVA' }) %>
+
+    <!-- Evangelizar FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Evangelizar', category_description: 'Católica', img_album: 'evangelizarfm', category_key: 'evangelizarfm', badge: 'FM 99.5' }) %>
+
+    <!-- Gospel FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Gospel FM', category_description: 'Curitiba, PR', img_album: 'gospelfm', category_key: 'gospelfm', badge: 'FM 89.3' }) %>
+
+    <!-- Brasil Gospel -->
+    <%- include('../partials/card-music', { 
+      category: 'Brasil Gospel', category_description: 'Ceará', img_album: 'brasilgospel', category_key: 'brasilgospel', badge: 'NOVA' }) %>
+
+    <hr style="margin-top: 30px; margin-bottom: 60px;">
+
+    <div style="font-size: 24px; color: #355872; margin-top: -30px; margin-bottom: 30px;">
+      <b>SomaFM</b>
+    </div>
+
+    <!-- SOMA.FM -->
+
+    <!-- Bossa Nova -->
+    <%- include('../partials/card-music', { 
+      category: 'Bossa Nova', category_description: 'Brasil', img_album: 'bossanova', category_key: 'bossanova', badge: 'SomaFM' }) %>
+
+    <!-- Covers -->
+    <%- include('../partials/card-music', { 
+      category: 'Covers', category_description: 'Famous', img_album: 'covers', category_key: 'covers', badge: 'SomaFM' }) %>
+
+    <!-- Lush -->
+    <%- include('../partials/card-music', { 
+      category: 'Lush', category_description: 'Exuberante', img_album: 'lush', category_key: 'lush', badge: 'SomaFM' }) %>
+
+    <!-- Seventies -->
+    <%- include('../partials/card-music', { 
+      category: '70s', category_description: 'Past', img_album: 'seventies', category_key: 'seventies', badge: 'SomaFM' }) %>
+
+    <!-- Street -->
+    <%- include('../partials/card-music', { 
+      category: 'Street', category_description: 'Take easy', img_album: 'street', category_key: 'street', badge: 'SomaFM' }) %>
+
+
+    <hr style="margin-top: 30px; margin-bottom: 60px;">
+
+    <!-- FMs -->
+
+    <div style="font-size: 24px; color: #355872; margin-top: -30px; margin-bottom: 30px;">
+      <b>FMs</b>
+    </div>
+
+    <!-- Alpha FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Alpha FM', category_description: 'São Paulo, SP', img_album: 'alphafm', category_key: 'alphafm', badge: 'FM 101.7' }) %>
+
+    <!-- CBN FM -->
+    <%- include('../partials/card-music', { 
+      category: 'CBN FM', category_description: 'São Paulo, SP', img_album: 'cbnfm', category_key: 'cbnfm', badge: 'FM 90.5' }) %>
+
+    <!-- Transamerica FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Transamérica', category_description: 'Curitiba, PR', img_album: 'transamericafm', category_key: 'transamericafm', badge: 'FM 100.3' }) %>
+
+    <!-- Uni FM -->
+    <%- include('../partials/card-music', { 
+      category: 'Uni FM', category_description: 'Santa Maria, RS', img_album: 'unifm', category_key: 'unifm', badge: 'NOVA' }) %>
+
+
+
+
+    <div id="nowPlaying" style="font-size: 15px; color: #355872; line-height: 1.0; margin-top: 20px;">
+      Nenhuma música tocando
+      <!-- <h4 id="nowPlaying">Nenhuma música tocando</h4> -->
+    </div>
+
+  </div>
+
+</div>
+
+<div class="container-transp" style="padding: 0px; margin-top: 10px; margin-bottom: 30px;">
+  <a href="/logout" class="btn btn-danger btn-logout"><i class="bi bi-x-circle-fill"></i> Sair</a>
+</div>
+<div class="container-transp" style="padding: 0px; margin-top: 10px; margin-bottom: 30px;">
+  <small class="text-muted">
+    O uso de música em ambientes comerciais pode exigir regularização junto ao <b>ECAD</b>.
+    A responsabilidade é do estabelecimento contratante.
+  </small>
+</div>
+
+<!-- <div id="screen-size"></div> -->
+<script>
+  // Mostrar largura ao carregar
+  function showScreenSize() {
+    const width = window.innerWidth;
+    const element = document.getElementById('screen-size');
+    if (element) {
+      element.innerHTML = `Largura da tela: ${width}px`;
+    }
+    // console.log(`Screen width: ${width}px`);
+    return width;
+  }
+
+  // showScreenSize();
+</script>
+
+<script>
+  /*
+====================================================
+ELEMENTOS DA PÁGINA
+====================================================
+*/
+
+  const player = document.getElementById("player");
+  const nowPlaying = document.getElementById("nowPlaying");
+
+  /*
+  ====================================================
+  ESTADO ATUAL DO PLAYER
+  ====================================================
+  */
+
+  let currentCategory = null;
+  let currentButton = null;
+
+
+  /*
+  ====================================================
+  CAPAS DOS ÁLBUNS POR CATEGORIA
+  ====================================================
+  */
+
+  const covers = {
+    pop: "pop3.jpg",
+    rock: "pop1.jpg",
+    ambient: "ambient.jpg",
+    background: "background.jpg",
+    country: "country.jpg",
+    classic: "classic1.jpg",
+    beats: "pop2.jpg",
+    all: "pop4.jpg",
+    lush: "lush.jpg",
+    covers: "covers.jpg",
+    street: "street.jpg",
+    seventies: "seventies.jpg"
+  };
+
+
+  /*
+  ====================================================
+  RETORNA A URL DO STREAM BASEADO NA CATEGORIA
+  ====================================================
+  */
+
+  async function getStreamUrl(category) {
+    // console.log('category: ', category);
+
+    try {
+
+      const response = await fetch(`/auth/stream-token?category=${category}`);
+      const data = await response.json();
+
+      // console.log('data:', data);
+
+      if (data.success) {
+
+        return {
+          proxy: data.streamUrl, // para tocar no navegador
+          direct: data.streamUrlDirect // para ESP32
+        }
+
+      } else {
+        // console.error('Erro ao obter token:', data.message);
+        // Fallback - URL sem token (não vai funcionar após configuração)
+        // return `http://187.39.148.202:8000/${category}`;
+        window.location.href = "/login";
+      }
+
+    } catch (error) {
+
+      // console.error('Erro ao buscar token:', error);
+      // return `http://187.39.148.202:8000/${category}`;
+      window.location.href = "/login";
+
+    }
+
+  }
+
+
+  /*
+  ====================================================
+  FORMATA O NOME DA CATEGORIA
+  ex: rock → Rock
+  ====================================================
+  */
+
+  function formatCategory(category) {
+
+    return category.charAt(0).toUpperCase() + category.slice(1);
+
+  }
+
+
+  /*
+  ====================================================
+  ATUALIZA A INTERFACE DO BOTÃO
+  ====================================================
+  */
+
+  function updateButtonState(button, playing) {
+
+    const card = button.closest('.position-relative');
+    const equalizer = card.querySelector('.equalizer');
+
+    if (playing) {
+
+      button.innerHTML = '<i class="biControl bi-stop-fill"></i>';
+
+      if (equalizer)
+        equalizer.classList.remove('d-none');
+
+    } else {
+
+      button.innerHTML = '<i class="biControl bi-play-fill"></i>';
+
+      if (equalizer)
+        equalizer.classList.add('d-none');
+
+    }
+
+  }
+
+
+  /*
+  ====================================================
+  PARA A MÚSICA ATUAL
+  ====================================================
+  */
+
+  function stopCurrentMusic() {
+
+    player.pause();
+    player.src = "";
+
+    if (currentButton)
+      updateButtonState(currentButton, false);
+
+    nowPlaying.innerText = "Nenhuma música tocando";
+
+    currentCategory = null;
+    currentButton = null;
+
+  }
+
+
+  /*
+  ====================================================
+  ENVIA A MÚSICA ATUAL PARA O BACKEND
+  ====================================================
+  */
+
+  function notifyBackend(category, streamUrl) {
+
+    const deviceSelect = document.getElementById("device");
+    const deviceId = deviceSelect.value;
+
+    const pathNowPlaying = "https://api.projeflix.com.br/api/now-playing";
+    // const pathNowPlaying = "/api/now-playing";
+
+    fetch(pathNowPlaying, {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+
+        title: category,
+        artist: "Projeflix Radio",
+        cover: `/imgs/albums/${covers[category] || "pop3.jpg"}`,
+        url: streamUrl,
+        category: category,
+        device: deviceId
+
+      })
+
+    });
+
+    const pathUpdateStream = "/customer/updatestream";
+    // device_id, ip, last_category
+
+    fetch(pathUpdateStream, {
+
+      method: 'POST',
+
+      headers: {
+        'Content-Type': 'application/json'
+      },
+
+      body: JSON.stringify({
+
+        last_category: streamUrl,
+        ip: "",
+        device_id: deviceId
+
+      })
+
+    });
+
+  }
+
+
+  /*
+  ====================================================
+  FUNÇÃO PRINCIPAL
+  DISPARADA AO CLICAR NA PLAYLIST
+  ====================================================
+  */
+
+  async function togglePlaylist(category, button) {
+
+    /*
+    Se clicar novamente na mesma playlist → parar
+    */
+
+    if (currentCategory === category && !player.paused) {
+
+      stopCurrentMusic();
+      return;
+
+    }
+
+
+    /*
+    Reset botão anterior
+    */
+
+    if (currentButton && currentButton !== button) {
+
+      updateButtonState(currentButton, false);
+
+    }
+
+
+    /*
+    Atualiza estado atual
+    */
+
+    currentCategory = category;
+    currentButton = button;
+
+
+    /*
+    Descobre URL do stream
+    */
+
+    // const streamUrl = await getStreamUrl(category);
+    const {
+      proxy: streamUrlProxy,
+      direct: streamUrlDirect
+    } = await getStreamUrl(category);
+
+    // console.log('streamUrlProxy', streamUrlProxy);
+    // console.log('streamUrlDirect', streamUrlDirect);
+
+    player.src = streamUrlProxy;
+    player.load();
+
+    nowPlaying.innerText = "Conectando...";
+
+
+    /*
+    Tenta iniciar o player
+    */
+
+    updateButtonState(button, true);
+
+    player.play()
+
+      .then(() => {
+
+        nowPlaying.innerText =
+          "Tocando: Radio " + formatCategory(category);
+
+        notifyBackend(category, streamUrlDirect);
+
+      })
+
+      .catch(err => {
+
+        console.error("Erro ao tocar:", err);
+
+      });
+
+  }
+</script>
+
+
+<%- include('../partials/footer') %>

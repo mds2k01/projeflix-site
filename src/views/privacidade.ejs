@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Política de Privacidade - Projeflix</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background-color: #F7F8F0;
+    }
+
+    .hero {
+      background-color: #355872;
+      color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="/">
+        <img src="/imgs/projeflix-logo-transp-blue.png" style="max-width:120px;">
+      </a>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <section class="hero py-4 text-center">
+    <div class="container">
+      <h2 class="fw-bold">Política de Privacidade</h2>
+    </div>
+  </section>
+
+  <!-- CONTEÚDO -->
+  <section class="py-5">
+    <div class="container" style="max-width: 800px;">
+
+      <p><strong>Última atualização:</strong> <%= new Date().toLocaleDateString() %></p>
+
+      <h5>1. Coleta de dados</h5>
+      <p>Coletamos dados como nome, contato, informações do estabelecimento e dados técnicos de acesso.</p>
+
+      <h5>2. Uso dos dados</h5>
+      <p>Utilizamos os dados para fornecer o serviço, melhorar a plataforma e realizar atendimento.</p>
+
+      <h5>3. Compartilhamento</h5>
+      <p>Seus dados não são vendidos. Podem ser compartilhados com serviços necessários para operação.</p>
+
+      <h5>4. Segurança</h5>
+      <p>Adotamos medidas para proteger seus dados contra acessos não autorizados.</p>
+
+      <h5>5. Direitos do usuário</h5>
+      <p>Você pode solicitar acesso, correção ou exclusão dos seus dados.</p>
+
+      <h5>6. Cookies</h5>
+      <p>Utilizamos cookies para melhorar a experiência.</p>
+
+      <h5>7. Alterações</h5>
+      <p>Esta política pode ser atualizada periodicamente.</p>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="text-white text-center py-3" style="background-color: #355872;">
+    <div class="container">
+      <small>© <%= new Date().getFullYear() %> Projeflix</small>
+    </div>
+  </footer>
+
+</body>
+
+</html>

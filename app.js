@@ -101,7 +101,7 @@ const PORT = process.env.PORT || 3000;
 
 (async () => {
 
-    await testarBancos();
+    // await testarBancos();
 
     server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);

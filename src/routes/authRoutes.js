@@ -8,7 +8,7 @@ const { ensureAuthenticated } = require('../middlewares/authMiddleware');
 // router.post('/login', authController.login);
 router.get('/register', authController.register);
 router.post('/adduser', authController.addUser);
-// router.get('/check-session', authController.checkSession);
+router.get('/check-session', authController.checkSession);
 router.get('/stream-token', authController.getStreamToken);
 // router.get('/validate-stream-token', authController.validateStreamToken);
 // router.get('/stream-proxy', authController.streamProxy);

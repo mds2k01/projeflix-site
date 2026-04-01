@@ -17,25 +17,32 @@ const pool = mysql.createPool({
     // ssl: process.env.NODE_ENV === 'production' ? {} : false
 });
 
-// Promisify para usar async/await
 const query = util.promisify(pool.query).bind(pool);
-
-// Testar conexão inicial
-const testConnection = async () => {
-    try {
-        const [result] = await query('SELECT 1 + 1 AS solution');
-        console.log('✅ Conectado ao MySQL do Raspberry Pi!');
-        console.log(`📊 Banco: ${pool.config.connectionConfig.database}`);
-        console.log(`🖥️  Host: ${pool.config.connectionConfig.host}`);
-        return true;
-    } catch (error) {
-        console.error('❌ Erro ao conectar ao MySQL:', error.message);
-        return false;
-    }
-};
 
 module.exports = {
     pool,
-    query,
-    testConnection
+    query
 };
+
+// // Promisify para usar async/await
+// const query = util.promisify(pool.query).bind(pool);
+
+// // Testar conexão inicial
+// const testConnection = async () => {
+//     try {
+//         const [result] = await query('SELECT 1 + 1 AS solution');
+//         console.log('✅ Conectado ao MySQL do Raspberry Pi!');
+//         console.log(`📊 Banco: ${pool.config.connectionConfig.database}`);
+//         console.log(`🖥️  Host: ${pool.config.connectionConfig.host}`);
+//         return true;
+//     } catch (error) {
+//         console.error('❌ Erro ao conectar ao MySQL:', error.message);
+//         return false;
+//     }
+// };
+
+// module.exports = {
+//     pool,
+//     query,
+//     testConnection
+// };

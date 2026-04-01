@@ -22,6 +22,12 @@
       <a href="/"><img src="/imgs/projeflix-logo-transp-blue.png" alt="Logo" class="img-fluid mb-3" style="max-width: 150px;"></a>
     </div>
 
+    <% if (dataManager.error) { %>
+    <div class="box box-color-red">
+      <%= dataManager.error %>
+    </div>
+    <% } %>
+
     <form action="/login" method="POST">
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>

@@ -17,17 +17,36 @@ const customerRoutes = require('./src/routes/customerRoutes');
 const app = express();
 const dbPi = require('./src/config/database_rasp');
 
+async function testarBancos() {
+    console.log('🔄 Testando conexões com os bancos...');
+    try {
+        await dbPi.query('SELECT 1');
+        console.log('✅ Conexão DB Pi OK');
+        return true;
+    } catch (err) {
+        console.error('❌ Erro DB Pi:', err.message);
+        return false;
+    }
+}
+
 // -------------------------
 // Configuração da sessão
 // -------------------------
 let sessionStore;
 try {
-    sessionStore = new MySQLStore({
-        expiration: 12 * 60 * 60 * 1000, // 1 minuto (mesmo valor do cookie)
-        checkExpirationInterval: 10 * 1000, // limpa a cada 10 segundos
-        clearExpired: true
-    }, dbPi);
-    console.log('✅ MySQLStore inicializado para sessão');
+    if (testarBancos == true) {
+        sessionStore = new MySQLStore({
+            expiration: 12 * 60 * 60 * 1000, // 1 minuto (mesmo valor do cookie)
+            checkExpirationInterval: 10 * 1000, // limpa a cada 10 segundos
+            clearExpired: true
+        }, dbPi);
+
+        console.log('✅ MySQLStore SUCCESS para sessão');
+    } else {
+        console.log('❌ MySQLStore FAIL para sessão');
+        sessionStore = new session.MemoryStore();
+    }
+
 } catch (err) {
     console.error('⚠️ Falha ao inicializar MySQLStore, fallback MemoryStore:', err.message);
     sessionStore = new session.MemoryStore();
@@ -85,23 +104,11 @@ app.use('/', homeRoutes);
 app.use('/auth', authRoutes);
 app.use('/customer', customerRoutes);
 
-async function testarBancos() {
-    console.log('🔄 Testando conexões com os bancos...');
-    try {
-        await dbPi.query('SELECT 1');
-        console.log('✅ Conexão DB Pi OK');
-    } catch (err) {
-        console.error('❌ Erro DB Pi:', err.message);
-    }
-}
-
 const http = require('http');
 const server = http.createServer(app);
 const PORT = process.env.PORT || 3000;
 
 (async () => {
-
-    // await testarBancos();
 
     server.listen(PORT, () => {
         console.log(`Server running on port ${PORT}`);

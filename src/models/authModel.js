@@ -40,6 +40,7 @@ const User = {
     },
 
     login: async function (req) {
+
         await localUser(req);
 
         const email = req.body.email;
@@ -77,7 +78,7 @@ const User = {
             }
 
         } catch (error) {
-            console.error('Auth Error:', error);
+            // console.error('Auth Error:', error);
             return { success: false, message: error.message }; // ⚠️ Retornar error.message
         }
     }
@@ -116,7 +117,7 @@ async function localUser(req) {
 
     try {
         const response = await axios.get(`http://ip-api.com/json/${ip}`);
-        console.log('localUser:', response.data);
+        // console.log('localUser:', response.data);
         return response.data;
     } catch (error) {
         console.error(err);

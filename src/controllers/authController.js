@@ -298,18 +298,35 @@ exports.login = async (req, res) => {
             res.redirect('/customer/dashboard');
 
         } else {
+            console.log('error login:', userData);
+
+            const errorMessages = {
+                'EHOSTDOWN': 'O servidor do banco de dados está indisponível. Verifique sua conexão de rede e tente novamente.',
+                'ECONNREFUSED': 'Não foi possível conectar ao servidor. Tente mais tarde.',
+                'ETIMEDOUT': 'Estamos com um problema interno temporário de conexão. Tente novamente mais tarde.',
+                'ECONNRESET': 'A conexão com o servidor foi interrompida. Tente novamente.',
+                'EHOSTUNREACH': 'O servidor está temporariamente inacessível. Tente novamente mais tarde.',
+                'PROTOCOL_CONNECTION_LOST': 'Estamos com instabilidade na conexão com o banco. Tente novamente em instantes.'
+            };
+
+            let msgError = 'Encontramos um problema. Por gentileza, tente novamente.';
+
+            if (userData && userData.message) {
+                for (const [key, value] of Object.entries(errorMessages)) {
+                    if (userData.message.includes(key)) {
+                        msgError = value;
+                        break; // Para no primeiro que encontrar
+                    }
+                }
+            }
+
+            dataManager.error = msgError;
+
+            console.log('dataManager:', dataManager);
             res.render('auth/login', { dataManager, title_page: 'ProjeFlix' });
         }
 
     }
-
-    // res.render('auth/login', { dataManager, title_page: 'ProjeFlix' });
-
-    // if (req.method === 'GET') {
-    //     res.render('auth/login', { dataManager, title_page: 'ProjeFlix' });
-    // } else {
-    //     res.redirect('/customer/dashboard');
-    // }
 
 };
 
@@ -359,6 +376,7 @@ exports.addUser = async (req, res) => {
     const addUser = await User.setUser(req.body);
     // console.log('addUser:', addUser);
 
+
     if (addUser.success === false && addUser.error) {
 
         if (addUser.error.toLowerCase().includes('duplicate entry')) {
@@ -370,7 +388,7 @@ exports.addUser = async (req, res) => {
         } else {
             return res.status(400).json({
                 success: false,
-                message: 'Erro ao cadastrar usuário',
+                message: 'Erro ao cadastrar usuário. Tente mais tarde.',
                 error: addUser.error
             });
         };

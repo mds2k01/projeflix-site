@@ -149,7 +149,7 @@ exports.getStreamToken = async (req, res) => {
         disco: "http://discomixradio.stream.laut.fm/discomixradio",
         pop2: "http://disco.stream.laut.fm/pop",
         dance: "http://disco.stream.laut.fm/dance",
-        sertanejo2: "http://s09.maxcast.com.br:8102/live",
+        // sertanejo2: "http://s09.maxcast.com.br:8102/live",
         sertanejo3: "http://s17.maxcast.com.br:8669/live",
         modaosertanejo2: "http://stream03.dghost.com.br:8290/stream",
         portaltradicao: "http://servidor18-3.brlogic.com:8486/live"

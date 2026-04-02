@@ -137,7 +137,6 @@ exports.getStreamToken = async (req, res) => {
         brasilgospel: "http://stream3.svrdedicado.org/8152/stream",
         gospelfm: "http://stream3.svrdedicado.org/8070/stream",
         forro: "http://stm5.painelcast.com:7600/stream",
-        // cbnfm: "http://27593.live.streamtheworld.com/CBN_SP.mp3",
         cbnfm: "http://playerservices.streamtheworld.com/api/livestream-redirect/CBN_SPAAC_SC?dist=radioaovivocom",
         transamericafm: "http://24503.live.streamtheworld.com/RT_CWB.mp3",
         unifm: "http://stream3.svrdedicado.org/8150/stream",
@@ -151,6 +150,8 @@ exports.getStreamToken = async (req, res) => {
         pop2: "http://disco.stream.laut.fm/pop",
         dance: "http://disco.stream.laut.fm/dance",
         sertanejo2: "http://s09.maxcast.com.br:8102/live",
+        sertanejo3: "http://s17.maxcast.com.br:8669/live",
+        modaosertanejo2: "http://stream03.dghost.com.br:8290/stream",
         portaltradicao: "http://servidor18-3.brlogic.com:8486/live"
     };
 

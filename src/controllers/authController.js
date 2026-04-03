@@ -118,7 +118,7 @@ exports.getStreamToken = async (req, res) => {
 
     // console.log('category:', category);
 
-    const streamMap = {
+    const streamMapOld = {
         playradio: "http://n02.radiojar.com/d9cm273ystzuv?rj-ttl=5&rj-tok=AAABnQiCmn4AyQu3jyMnMq7tew",
         tango: "http://sonic.radiostreaminglatino.com/8072/stream",
         italia: "http://kisskiss.fluidstream.eu/KKItalia.mp3",
@@ -157,9 +157,46 @@ exports.getStreamToken = async (req, res) => {
         evangelizarfm: "http://8239.brasilstream.com.br/stream"
     };
 
+    const streamMap = {
+        playradio: { url: "http://n02.radiojar.com/d9cm273ystzuv?rj-ttl=5&rj-tok=AAABnQiCmn4AyQu3jyMnMq7tew", track: "Play Radio", category: "Atuais" },
+        tango: { url: "http://sonic.radiostreaminglatino.com/8072/stream", track: "Argentina", category: "Tango" },
+        italia: { url: "http://kisskiss.fluidstream.eu/KKItalia.mp3", track: "Kiss", category: "Italia" },
+        gaucha: { url: "http://campeiro.stream.laut.fm/campeiro", track: "Campeiro", category: "Gaucha" },
+        patriagaucha: { url: "http://servidor16-3.brlogic.com:7614/live", track: "Patria Gaucha", category: "Gaucha" },
+        alphafm: { url: "http://playerservices.streamtheworld.com/api/livestream-redirect/RADIO_ALPHAFM_ADP_SC?dist=site-alphafm", track: "Alpha FM", category: "Pop" },
+        jazz: { url: "http://jazz-wr04.ice.infomaniak.ch/jazz-wr04-128.mp3", track: "Jazz", category: "Jazz" },
+        mpb: { url: "http://live.hunter.fm/mpb_stream?ag=mp3", track: "Brasil", category: "MPB" },
+        paradise: { url: "http://stream.radioparadise.com/mp3-128", track: "Paradise", category: "Web Radio" },
+        lush: { url: "http://ice4.somafm.com/lush-128-mp3", track: "SomaFm", category: "Lush" },
+        seventies: { url: "http://ice4.somafm.com/seventies-128-mp3", track: "SomaFm", category: "70s" },
+        covers: { url: "http://ice4.somafm.com/covers-128-mp3", track: "SomaFm", category: "Covers" },
+        street: { url: "http://ice4.somafm.com/illstreet-128-mp3", track: "SomaFm", category: "Street" },
+        top40: { url: "http://listen.011fm.com/stream18", track: "Hits", category: "Atuais" },
+        usabrasil: { url: "http://cast4.hoost.com.br:20165/stream", track: "USA Brasil", category: "Nacionais" },
+        brasilgospel: { url: "http://stream3.svrdedicado.org/8152/stream", track: "Brasil Gospel", category: "Gospel" },
+        gospelfm: { url: "http://stream3.svrdedicado.org/8070/stream", track: "Gospel FM", category: "Gospel" },
+        forro: { url: "http://stm5.painelcast.com:7600/stream", track: "Popular", category: "Forro" },
+        cbnfm: { url: "http://playerservices.streamtheworld.com/api/livestream-redirect/CBN_SPAAC_SC?dist=radioaovivocom", track: "CBN SP", category: "Noticias" },
+        transamericafm: { url: "http://24503.live.streamtheworld.com/RT_CWB.mp3", track: "Transamerica PR", category: "Esportes" },
+        unifm: { url: "http://stream3.svrdedicado.org/8150/stream", track: "UniFm", category: "Diversas" },
+        antigas: { url: "http://stream3.svrdedicado.org/8040/stream", track: "Oldies", category: "Antigas" },
+        cancaonovafm: { url: "http://streaming.fox.srv.br:8074/stream", track: "Cancao Nova", category: "Catolica" },
+        bossanova: { url: "http://ice4.somafm.com/bossa-128-mp3", track: "Jobim & Cia.", category: "Bossa Nova" },
+        raulseixas: { url: "http://stream.zeno.fm/xrhbskhanz4tv?1774627673474", track: "Raul Seixas", category: "Nacionais" },
+        flashback: { url: "http://stream3.svrdedicado.org/8012/stream", track: "Recordar", category: "Flashback" },
+        gym: { url: "http://holidaygym.emitironline.com/", track: "Academia", category: "Ritmo" },
+        disco: { url: "http://discomixradio.stream.laut.fm/discomixradio", track: "Dance", category: "Disco" },
+        pop2: { url: "http://poprockfm.stream.laut.fm/poprockfm", track: "Pop New", category: "Pop" },
+        dance: { url: "http://disco.stream.laut.fm/dance", track: "Ritmo", category: "Dance" },
+        sertanejo3: { url: "http://s17.maxcast.com.br:8669/live", track: "", category: "Sertanejo" },
+        modaosertanejo2: { url: "http://stream03.dghost.com.br:8290/stream", track: "Modao Sertanejo", category: "Sertanejo" },
+        portaltradicao: { url: "http://servidor18-3.brlogic.com:8486/live", track: "P. Tradicao", category: "Gaucha" },
+        evangelizarfm: { url: "http://8239.brasilstream.com.br/stream", track: "Evangelizar FM", category: "Catolica" }
+    };
+
     if (streamMap[category]) {
 
-        let urlHTTP = streamMap[category];
+        let urlHTTP = streamMap[category].url;
         const urlHTTPS = urlHTTP.replace(/^http:\/\//, "https://");
 
         if (!dataUser?.id) {
@@ -169,8 +206,9 @@ exports.getStreamToken = async (req, res) => {
             const { mail, id } = dataUser;
 
             trackAsync('now_playing', id, {
-                mail,
-                category,
+                email: mail,
+                track: streamMap[category].track,
+                category: streamMap[category].category,
                 url: urlHTTP
             });
         }
@@ -178,6 +216,8 @@ exports.getStreamToken = async (req, res) => {
         return res.status(200).json({
             success: true,
             token: '',
+            track: streamMap[category].track,
+            category: streamMap[category].category,
             streamUrlDirect: urlHTTP,
             streamUrl: urlHTTPS
         });
@@ -209,6 +249,19 @@ exports.getStreamToken = async (req, res) => {
         // console.log('streamUrlTemp:', streamUrl);
         const streamUrlPostHog = `http://api.projeflix.com.br:8080/stream/${category}`;
 
+        let infoStationTrack = 'Radio Projeflix';
+        let infoStationCategory = 'Projeflix';
+
+        const streamMapProjeflix = {
+            all: { track: "Radio Projeflix", category: "Variadas" },
+            ambient: { track: "Paz no Ambiente", category: "Lounge" },
+            classic: { track: "Os Classicos", category: "Classicas" },
+            piano: { track: "Sofisticado", category: "Piano" },
+            pop: { track: "Nosso Pop", category: "Pop" },
+            rock: { track: "Mais Energia", category: "Rock" },
+            shorts: { track: "Welcome", category: "Radio Projeflix" }
+        }
+
         if (!dataUser?.id) {
             console.log('❌ Usuário não logado - now_playing não enviado');
         } else {
@@ -216,15 +269,23 @@ exports.getStreamToken = async (req, res) => {
             const { mail, id } = dataUser;
 
             trackAsync('now_playing', id, {
-                mail,
-                category,
+                email: mail,
+                track: streamMapProjeflix[category].track,
+                category: streamMapProjeflix[category].category,
                 url: streamUrlPostHog
             });
+        }
+
+        if (streamMapProjeflix[category]) {
+            infoStationTrack = streamMapProjeflix[category].track;
+            infoStationCategory = streamMapProjeflix[category].category;
         }
 
         return res.status(200).json({
             success: true,
             token: token,
+            track: infoStationTrack,
+            category: infoStationCategory,
             streamUrl: streamUrl,
             streamUrlDirect: streamUrlTemp
         });

@@ -327,13 +327,15 @@ ELEMENTOS DA PÁGINA
       const response = await fetch(`/auth/stream-token?category=${category}`);
       const data = await response.json();
 
-      // console.log('data:', data);
+      console.log('data:', data);
 
       if (data.success) {
 
         return {
           proxy: data.streamUrl, // para tocar no navegador
-          direct: data.streamUrlDirect // para ESP32
+          direct: data.streamUrlDirect, // para ESP32
+          track: data.track,
+          category: data.category
         }
 
       } else {
@@ -426,7 +428,7 @@ ELEMENTOS DA PÁGINA
   ====================================================
   */
 
-  function notifyBackend(category, streamUrl) {
+  function notifyBackend(category, streamUrl, musicTrack, musicCategory) {
 
     const deviceSelect = document.getElementById("device");
     const deviceId = deviceSelect.value;
@@ -445,13 +447,24 @@ ELEMENTOS DA PÁGINA
       body: JSON.stringify({
 
         title: category,
-        artist: "Projeflix Radio",
+        artist: musicTrack,
         cover: `/imgs/albums/${covers[category] || "pop3.jpg"}`,
         url: streamUrl,
-        category: category,
+        category: musicCategory,
         device: deviceId
 
       })
+
+      // body: JSON.stringify({
+
+      //   title: category,
+      //   artist: "Projeflix Radio",
+      //   cover: `/imgs/albums/${covers[category] || "pop3.jpg"}`,
+      //   url: streamUrl,
+      //   category: category,
+      //   device: deviceId
+
+      // })
 
     });
 
@@ -523,14 +536,22 @@ ELEMENTOS DA PÁGINA
     Descobre URL do stream
     */
 
-    // const streamUrl = await getStreamUrl(category);
-    const {
-      proxy: streamUrlProxy,
-      direct: streamUrlDirect
-    } = await getStreamUrl(category);
+    // const {
+    //   proxy: streamUrlProxy,
+    //   direct: streamUrlDirect,
+    //   track: track
+    // } = await getStreamUrl(category);
 
     // console.log('streamUrlProxy', streamUrlProxy);
     // console.log('streamUrlDirect', streamUrlDirect);
+    // console.log('track', track);
+
+    const infoMusic = await getStreamUrl(category);
+    console.log('infoMusic:', infoMusic);
+    streamUrlProxy = infoMusic.proxy;
+    streamUrlDirect = infoMusic.direct;
+    const musicTrack = infoMusic.track;
+    const musicCategory = infoMusic.category;
 
     player.src = streamUrlProxy;
     player.load();
@@ -551,7 +572,7 @@ ELEMENTOS DA PÁGINA
         nowPlaying.innerText =
           "Tocando: Radio " + formatCategory(category);
 
-        notifyBackend(category, streamUrlDirect);
+        notifyBackend(category, streamUrlDirect, musicTrack, musicCategory);
 
       })
 

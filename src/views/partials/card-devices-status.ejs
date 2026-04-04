@@ -517,7 +517,8 @@
 
           const diffSeconds =
             (Date.now() - lastAccess.getTime()) / 1000;
-          const isOnline = diffSeconds < 1200;
+          console.log('diff:', diffSeconds);
+          const isOnline = diffSeconds < ((3 * 60 * 60) + (20 * 6));
           const card = document.querySelector(`.device-card[data-device-id="${deviceId}"]`);
 
           if (card) {

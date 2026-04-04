@@ -5,6 +5,15 @@
     box-sizing: border-box;
   }
 
+  .device-card.online {
+    background: linear-gradient(145deg, #ecfdf5, #d1fae5);
+    border: 1px solid rgba(34, 197, 94, 0.2);
+  }
+
+  .device-card.offline {
+    opacity: 0.85;
+  }
+
   #devicesList {
     max-width: 1200px;
     margin: 0 auto;
@@ -340,19 +349,16 @@
   <% if (devices && Object.keys(devices).length > 0) { %>
   <div class="devices-grid">
     <% Object.values(devices).forEach(device => { 
+
       const isAuthorized = device.auth == 1;
       const deviceId = device.device_id || 'N/A';
       const owner = device.owner || 'Sem proprietário';
 
       // const lastCategory = device.last_category ? device.last_category.split('/').pop() : 'Nenhuma';
-      const lastCategory = 
-  (typeof device.last_category === 'string' && device.last_category.includes('/'))
-    ? device.last_category.split('/').pop().split('?')[0]
-    : (typeof device.last_category === 'string'
-        ? device.last_category
-        : 'Nenhuma');
+      const lastStream = `${device.title} - ${device.category}`;
 
       const lastAccess = device.last_access ? new Date(device.last_access) : null;
+      console.log('device last:', device);
     %>
     <div class="device-card auth-<%= isAuthorized ? '1' : '0' %>" data-device-id="<%= deviceId %>">
       <!-- Badge de autorização -->
@@ -370,7 +376,7 @@
         <div class="device-subtitle">
           <i class="bi bi-music-note-beamed"></i>
           <span class="category-text" id="category-<%= deviceId %>">
-            <%= lastCategory %>
+            <%= lastStream %>
           </span>
         </div>
         <div class="badge-status">
@@ -472,11 +478,12 @@
       const categoryText = card.querySelector(`#category-${device.device_id}`);
       if (categoryText && device.last_category) {
         // categoryText.textContent = device.last_category.split('/').pop();
-        const lastCategoryText = device.last_category ?
-          device.last_category.split('/').pop().split('?')[0] :
-          'Nenhuma';
+        // const lastCategoryText = device.last_category ?
+        //   device.last_category.split('/').pop().split('?')[0] :
+        //   'Nenhuma';
+        const streamTitle = `${device.title} - ${device.category}`;
 
-        categoryText.textContent = lastCategoryText;
+        categoryText.textContent = streamTitle;
       }
 
       /* ---------- ÚLTIMO ACESSO ---------- */
@@ -500,13 +507,23 @@
       const statusText = document.getElementById(`status-${deviceId}`);
       const categoryText = document.getElementById(`category-${deviceId}`);
 
+      // console.log('device:', device);
+
       //   categoryText.textContent = device.last_category.split('/').pop();
 
       if (dot && statusText) {
         if (device.last_access) {
           const lastAccess = new Date(device.last_access);
-          const diffSeconds = (now - lastAccess) / 1000;
-          const isOnline = diffSeconds < 20;
+
+          const diffSeconds =
+            (Date.now() - lastAccess.getTime()) / 1000;
+          const isOnline = diffSeconds < 1200;
+          const card = document.querySelector(`.device-card[data-device-id="${deviceId}"]`);
+
+          if (card) {
+            card.classList.remove('online', 'offline');
+            card.classList.add(isOnline ? 'online' : 'offline');
+          }
 
           dot.className = `status-dot ${isOnline ? 'online' : 'offline'}`;
           statusText.className = `status-text ${isOnline ? 'online' : 'offline'}`;

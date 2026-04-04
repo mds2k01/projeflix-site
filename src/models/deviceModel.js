@@ -20,6 +20,30 @@ const Devices = {
         }
     },
 
+    async updateDateToDevice(device_id) {
+        try {
+            const query = `
+            UPDATE device
+            SET updated_at = CURRENT_TIMESTAMP
+            WHERE device_id = ?
+        `;
+
+            const result = await pool.query(query, [device_id]);
+
+            return {
+                success: true,
+                affectedRows: result.affectedRows
+            };
+
+        } catch (error) {
+            console.error('Erro em updateDateToDevice:', error);
+            return {
+                success: false,
+                error: error.message
+            };
+        }
+    },
+
     async getDeviceContentFromDevice(device_id) {
 
         try {
@@ -55,7 +79,8 @@ const Devices = {
                 ip = VALUES(ip), 
                 last_category = VALUES(last_category),
                 title = VALUES(title),
-                category = VALUES(category)
+                category = VALUES(category),
+                last_access = CURRENT_TIMESTAMP
         `;
 
             // 2. Cria uma promessa para cada ID e executa todas simultaneamente

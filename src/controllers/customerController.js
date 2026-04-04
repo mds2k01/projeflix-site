@@ -89,7 +89,7 @@ exports.updateDeviceStream = async (req, res) => {
     */
 
     // device_ids_string, ip, last_category
-    console.log('req body:', req.body);
+    // console.log('req body:', req.body);
 
     if (req.session.userData) {
         Devices.updateContentForDevice(req.body.device_id || '000', '',

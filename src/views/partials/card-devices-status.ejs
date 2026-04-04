@@ -518,7 +518,7 @@
           const diffSeconds =
             (Date.now() - lastAccess.getTime()) / 1000;
           // console.log('diff:', diffSeconds);
-          const isOnline = diffSeconds < ((3 * 60 * 60) + (5 * 60)); //3 horas e 5 minutos - 3 hora spara compensar o fuso horario
+          const isOnline = diffSeconds < ((3 * 60 * 60) + (1 * 60)); //3 horas e 1 minuto - 3 hora spara compensar o fuso horario
           const card = document.querySelector(`.device-card[data-device-id="${deviceId}"]`);
 
           if (card) {

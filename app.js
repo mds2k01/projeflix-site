@@ -32,9 +32,10 @@ async function testarBancos() {
 // -------------------------
 // Configuração da sessão
 // -------------------------
+const enableBanco = true;
 let sessionStore;
 try {
-    if (testarBancos == true) {
+    if (enableBanco == true) {
         sessionStore = new MySQLStore({
             expiration: 12 * 60 * 60 * 1000, // 1 minuto (mesmo valor do cookie)
             checkExpirationInterval: 10 * 1000, // limpa a cada 10 segundos

@@ -38,21 +38,28 @@ const Devices = {
         }
     },
 
-    async updateContentForDevice(device_ids_string, ip, last_category) {
+    async updateContentForDevice(device_ids_string, ip, last_category, title, category) {
+
         try {
+
+            console.log('Title:', title);
+            console.log('Category:', category);
+
             // 1. Converte a string "ID1,ID2" em um array ["ID1", "ID2"]
             const ids = device_ids_string.split(',').map(id => id.trim());
 
             const query = `
-            INSERT INTO projeflix_radio.stream (device_id, ip, last_category) 
-            VALUES (?, ?, ?)
+            INSERT INTO projeflix_radio.stream (device_id, ip, last_category, title, category) 
+            VALUES (?, ?, ?, ?, ?)
             ON DUPLICATE KEY UPDATE 
                 ip = VALUES(ip), 
-                last_category = VALUES(last_category)
+                last_category = VALUES(last_category),
+                title = VALUES(title),
+                category = VALUES(category)
         `;
 
             // 2. Cria uma promessa para cada ID e executa todas simultaneamente
-            const promises = ids.map(id => pool.query(query, [id, ip, last_category]));
+            const promises = ids.map(id => pool.query(query, [id, ip, last_category, title, category]));
             const results = await Promise.all(promises);
 
             return {

@@ -481,6 +481,8 @@ ELEMENTOS DA PÁGINA
 
       body: JSON.stringify({
 
+        title: musicTrack,
+        category: musicCategory,
         last_category: streamUrl,
         ip: "",
         device_id: deviceId
@@ -569,8 +571,10 @@ ELEMENTOS DA PÁGINA
 
       .then(() => {
 
-        nowPlaying.innerText =
-          "Tocando: Radio " + formatCategory(category);
+        // nowPlaying.innerText =
+        //   "Tocando: Radio " + formatCategory(category);
+
+        nowPlaying.innerText = `Reproduzindo ${musicTrack} - ${musicCategory}`;
 
         notifyBackend(category, streamUrlDirect, musicTrack, musicCategory);
 

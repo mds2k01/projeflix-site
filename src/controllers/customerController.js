@@ -80,11 +80,20 @@ exports.infoDevices = async (req, res) => {
 
 exports.updateDeviceStream = async (req, res) => {
 
+    /*
+    title: 'Nosso Pop',
+    category: 'Pop',
+    last_category: 'http://api.projeflix.com.br:8080/stream/pop?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjksImlhdCI6MTc3NTI2MzY5MCwiZXhwIjoxNzc1MjY0MjkwfQ.HeQtY21VJ5ynMODaEE9ouQDQjthDc3INLO6rY5lxT0Y',
+    ip: '',
+    device_id: 'D4E9F4E987D4,00700725E0A0,A4F00F909398'
+    */
+
     // device_ids_string, ip, last_category
-    // console.log('req body:', req.body);
+    console.log('req body:', req.body);
 
     if (req.session.userData) {
-        Devices.updateContentForDevice(req.body.device_id || '000', '', req.body.last_category || 'http://api.projeflix.com.br:8080/stream/shorts?token=projeflix');
+        Devices.updateContentForDevice(req.body.device_id || '000', '',
+            req.body.last_category || 'http://api.projeflix.com.br:8080/stream/shorts?token=projeflix', req.body.title || 'Radio Projeflix', req.body.category || 'Projeflix');
         // console.log('updateStream:', updateStream);
     }
 

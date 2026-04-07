@@ -182,7 +182,7 @@ exports.getStreamToken = async (req, res) => {
         antigas: { url: "http://stream3.svrdedicado.org/8040/stream", track: "Oldies", category: "Antigas" },
         cancaonovafm: { url: "http://streaming.fox.srv.br:8074/stream", track: "Cancao Nova", category: "Catolica" },
         bossanova: { url: "http://ice4.somafm.com/bossa-128-mp3", track: "Jobim & Cia.", category: "Bossa Nova" },
-        raulseixas: { url: "http://stream.zeno.fm/xrhbskhanz4tv?1774627673474", track: "Raul Seixas", category: "Nacionais" },
+        raulseixas: { url: "https://stream.zeno.fm/xrhbskhanz4tv", track: "Raul Seixas", category: "Nacionais" },
         flashback: { url: "http://stream3.svrdedicado.org/8012/stream", track: "Recordar", category: "Flashback" },
         gym: { url: "http://holidaygym.emitironline.com/", track: "Academia", category: "Ritmo" },
         disco: { url: "http://discomixradio.stream.laut.fm/discomixradio", track: "Dance", category: "Disco" },
@@ -193,6 +193,8 @@ exports.getStreamToken = async (req, res) => {
         portaltradicao: { url: "http://servidor18-3.brlogic.com:8486/live", track: "P. Tradicao", category: "Gaucha" },
         evangelizarfm: { url: "http://8239.brasilstream.com.br/stream", track: "Evangelizar FM", category: "Catolica" }
     };
+
+    // http://stream.zeno.fm/xrhbskhanz4tv?1774627673474 - Raul
 
     if (streamMap[category]) {
 

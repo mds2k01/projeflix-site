@@ -75,7 +75,7 @@ app.use(session({
 if (process.env.NODE_ENV !== 'development') {
     app.use(rateLimit({
         windowMs: 30 * 60 * 1000, // 30 minutos
-        max: 1500, // limite de 1500 requisições por IP no período
+        max: 15000, // limite de 1500 requisições por IP no período
         message: { error: 'Too many requests, try again later.' },
         standardHeaders: true,
         legacyHeaders: false,

@@ -182,7 +182,7 @@ exports.getStreamToken = async (req, res) => {
         antigas: { url: "http://stream3.svrdedicado.org/8040/stream", track: "Oldies", category: "Antigas" },
         cancaonovafm: { url: "http://streaming.fox.srv.br:8074/stream", track: "Cancao Nova", category: "Catolica" },
         bossanova: { url: "http://ice4.somafm.com/bossa-128-mp3", track: "Jobim & Cia.", category: "Bossa Nova" },
-        raulseixas: { url: "https://stream.zeno.fm/xrhbskhanz4tv", track: "Raul Seixas", category: "Nacionais" },
+        raulseixas: { url: "http://stream.zeno.fm/xrhbskhanz4tv", track: "Raul Seixas", category: "Nacionais" },
         flashback: { url: "http://stream3.svrdedicado.org/8012/stream", track: "Recordar", category: "Flashback" },
         gym: { url: "http://holidaygym.emitironline.com/", track: "Academia 1", category: "Ritmo" },
         gym2: { url: "http://stream.laut.fm/workout", track: "Academia 2", category: "Ritmo" },

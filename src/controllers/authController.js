@@ -159,7 +159,7 @@ exports.getStreamToken = async (req, res) => {
 
     const streamMap = {
         playradio: { url: "http://n02.radiojar.com/d9cm273ystzuv?rj-ttl=5&rj-tok=AAABnQiCmn4AyQu3jyMnMq7tew", track: "Play Radio", category: "Atuais" },
-        tango: { url: "http://sonic.radiostreaminglatino.com/8072/stream", track: "Argentina", category: "Tango" },
+        tango: { url: "http://tangocopenhagen.stream.laut.fm/tangocopenhagen", track: "Argentina", category: "Tango" },
         italia: { url: "http://kisskiss.fluidstream.eu/KKItalia.mp3", track: "Kiss", category: "Italia" },
         gaucha: { url: "http://campeiro.stream.laut.fm/campeiro", track: "Campeiro", category: "Gaucha" },
         patriagaucha: { url: "http://servidor16-3.brlogic.com:7614/live", track: "Patria Gaucha", category: "Gaucha" },

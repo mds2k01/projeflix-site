@@ -358,7 +358,7 @@
       const lastStream = `${device.title} - ${device.category}`;
 
       const lastAccess = device.last_access ? new Date(device.last_access) : null;
-      console.log('device last:', device);
+      // console.log('device last:', device);
     %>
     <div class="device-card auth-<%= isAuthorized ? '1' : '0' %>" data-device-id="<%= deviceId %>">
       <!-- Badge de autorização -->

@@ -66,8 +66,8 @@ const Devices = {
 
         try {
 
-            console.log('Title:', title);
-            console.log('Category:', category);
+            // console.log('Title:', title);
+            // console.log('Category:', category);
 
             // 1. Converte a string "ID1,ID2" em um array ["ID1", "ID2"]
             const ids = device_ids_string.split(',').map(id => id.trim());

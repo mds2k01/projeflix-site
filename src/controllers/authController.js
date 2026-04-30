@@ -192,7 +192,7 @@ exports.getStreamToken = async (req, res) => {
         pop2: { url: "http://poprockfm.stream.laut.fm/poprockfm", track: "Pop New", category: "Pop" },
         dance: { url: "http://disco.stream.laut.fm/dance", track: "Ritmo", category: "Dance" },
         sertanejo3: { url: "http://s17.maxcast.com.br:8669/live", track: "Caipira", category: "Sertanejo" },
-        modaosertanejo2: { url: "http://stream03.dghost.com.br:8290/stream", track: "Modao Sertanejo", category: "Sertanejo" },
+        modaosertanejo2: { url: "http://stream03.dghost.com.br:8290/stream", track: "Moda Sertaneja", category: "Sertanejo" },
         portaltradicao: { url: "http://servidor18-3.brlogic.com:8486/live", track: "P. Tradicao", category: "Gaucha" },
         evangelizarfm: { url: "http://8239.brasilstream.com.br/stream", track: "Evangelizar FM", category: "Catolica" }
     };
